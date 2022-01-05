@@ -19,7 +19,7 @@ export default function App() {
 		// 		<Stack.Screen name='Blank' component={Blank}/>
 		// 	</Stack.Navigator>
 		// </NavigationContainer>
-		<SafeAreaView>
+		<SafeAreaView style={styles.container}>
 			<Text>{p}</Text>
 			<Text>{b}</Text>
 			<Button title='addP' onPress={() => setP(p + 1)}></Button>
