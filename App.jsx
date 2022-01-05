@@ -11,15 +11,13 @@ export default function App() {
 
 
   return (
-		// <NavigationContainer>
-		// 	<Stack.Navigator>
-		// 		<Stack.Screen name='Home' component={Home}/>
-		// 		<Stack.Screen name='Blank' component={Blank}/>
-		// 	</Stack.Navigator>
-		// </NavigationContainer>
-		<SafeAreaView style={styles.container}>
-			<Home p={0} b={2}></Home>
-		</SafeAreaView>
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name='Home' component={Home}/>
+				<Stack.Screen name='Blank' component={Blank}/>
+			</Stack.Navigator>
+		</NavigationContainer>
+
   );
 }
 
