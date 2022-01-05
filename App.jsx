@@ -8,15 +8,23 @@ import Home from './components/Home.jsx'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
+	const [p, setP] = React.useState(2)
+	const [b, setB] = React.useState(0)
+	
 
   return (
-		<NavigationContainer>
-			<Stack.Navigator screenOptions={{headerShown:true}}>
-				<Stack.Screen name='Home' component={Home} initialParams={{p:2, b:0}}/>
-				<Stack.Screen name='Blank' component={Blank}/>
-			</Stack.Navigator>
-		</NavigationContainer>
+		// <NavigationContainer>
+		// 	<Stack.Navigator screenOptions={{headerShown:true}}>
+		// 		<Stack.Screen name='Home' component={Home} initialParams={{p:p, b:b}} />
+		// 		<Stack.Screen name='Blank' component={Blank}/>
+		// 	</Stack.Navigator>
+		// </NavigationContainer>
+		<SafeAreaView>
+			<Text>{p}</Text>
+			<Text>{b}</Text>
+			<Button title='addP' onPress={() => setP(p + 1)}></Button>
+			<Button title='addB' onPress={() => setB(b + 1)}></Button>
+		</SafeAreaView>
   );
 }
 
