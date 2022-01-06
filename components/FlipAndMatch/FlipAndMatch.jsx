@@ -1,14 +1,24 @@
 import * as React from 'react'
-import { StyleSheet, Button, Text, SafeAreaView, View, Image } from 'react-native'
+import { Image, TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-native'
 
 const cardImage = [
-	{"src": "../FlipAndMatch/img/chrome.png"},
-	{"src": "../FlipAndMatch/img/edge.png"},
-	{"src": "../FlipAndMatch/img/firefox.png"},
-	{"src": "../FlipAndMatch/img/ie.png"},
-	{"src": "../FlipAndMatch/img/opera.png"},
-	{"src": "../FlipAndMatch/img/safari.png"},
+	{src: require('../FlipAndMatch/img/chrome.png'), id: 0},
+	{src: require('../FlipAndMatch/img/edge.png'), id: 1},
+	{src: require('../FlipAndMatch/img/firefox.png'), id: 2},
+	{src: require('../FlipAndMatch/img/ie.png'), id: 3},
+	{src: require('../FlipAndMatch/img/opera.png'), id: 4},
+	{src: require('../FlipAndMatch/img/safari.png'), id: 5},
 ]
+
+function Item({source, }) {
+	return (
+		<View style={styles.item}>
+			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
+      			<Image style={styles.logo} source={source} />
+    		</TouchableOpacity>
+		</View>
+	)
+}
 
 export default function FlipAndMatch({navigation}) {
 	const [flip, setFlip] = React.useState(0)
@@ -17,7 +27,6 @@ export default function FlipAndMatch({navigation}) {
 	const shuffle = () =>{
 		const shuffled = [...cardImage, ...cardImage]
 			.sort(() => 0.5 - Math.random())
-			.map((card) => ({...card, id: Math.random()}))
 		setCards(shuffled)
 		setFlip(0)
 	}
@@ -25,14 +34,23 @@ export default function FlipAndMatch({navigation}) {
 	console.log(cards, flip)
 
 	return (
-		<SafeAreaView style={style.container}>
-			<Text style={style.titleText}>Flip And Match</Text>
-			<Button title='New Game' onPress={shuffle}></Button>
-			<Image source={require('../FlipAndMatch/img/safari.png')} />
-			<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
+
+		<SafeAreaView style={{flex:1, backgroundColor:'#d6efff'}}>
+			<SafeAreaView style={style.container}>
+				<Text style={style.titleText}>Flip And Match</Text>
+				<Button title='New Game' onPress={shuffle}></Button>
+				{
+					cards.map((e, i) =>{
+							<Item key={i} source={e.src} id={e.id} />
+					})
+				}
+				<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
+			</SafeAreaView>
 		</SafeAreaView>
 	)
 }
+
+const {height, width} = Dimensions.get('screen');
 
 const style = StyleSheet.create({
 	container: {
@@ -48,5 +66,17 @@ const style = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	item: {
+		width: width*7/25,
+		height: width*7/25,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	card: {
+		flexDirection:'column',
+		width: 60,
+		height: 60,
+		borderRadius: 20,
+		backgroundColor: '#000',
+  	},
 });
-
