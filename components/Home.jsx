@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-
 function Item({name, nav}) {
 	return (
 		<View style={styles.item}>
-		{ // TODO: Replace Button with Icon }
+			{/* TODO: Put an Icon of the App instead of a Button */}
 			<Button title={name} onPress={() => nav.navigate('Blank')}></Button>
 		</View>
 	)
@@ -36,7 +36,7 @@ const {height, width} = Dimensions.get('screen');
 const styles = StyleSheet.create({
 	outContainer:{
 		flex:1,
-		margin: width/26,
+		margin: width/50,
     backgroundColor: '#000',
 	},
   container: {
@@ -45,11 +45,10 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
   },
 	item: {
-		width: width/13*3,
-		height: width/13*3,
+		width: width*6/25,
+		height: width*6/25,
 		justifyContent: 'center',
 		alignItems: 'center',
     backgroundColor: '#ddd',
-		borderWidth: 1,
 	}
 });
