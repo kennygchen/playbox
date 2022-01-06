@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-
 function Item({name, nav}) {
 	return (
 		<View style={styles.item}>
+		{ // TODO: Replace Button with Icon }
 			<Button title={name} onPress={() => nav.navigate('Blank')}></Button>
 		</View>
 	)
