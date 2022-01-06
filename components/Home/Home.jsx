@@ -25,8 +25,7 @@ function Item({game, nav}) {
 export default function Home({route, navigation}) {
 	return (
 		<SafeAreaView style={{flex:1, backgroundColor: '#fff'}}>
-			<SafeAreaView style={styles.outContainer}>
-				<SafeAreaView style={styles.container}>
+			<SafeAreaView style={styles.container}>
 					{
 						Games.map((e, i) => {
 							return (
@@ -34,7 +33,6 @@ export default function Home({route, navigation}) {
 							);
 						})
 					}
-				</SafeAreaView>
 			</SafeAreaView>
 		</SafeAreaView>
 	)
@@ -42,16 +40,16 @@ export default function Home({route, navigation}) {
 
 const {height, width} = Dimensions.get('screen');
 
-
 const styles = StyleSheet.create({
 	outContainer:{
 		flex:1,
 		margin: width/50,
 	},
-  container: {
+  	container: {
 		flex:1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
+		margin: width/50,
   	},
 	item: {
 		width: width*7/25,
