@@ -1,26 +1,35 @@
 import * as React from 'react'
-import { StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-native';
 
-function Item({name, nav}) {
+
+const Games = [
+	{
+		name:'FlipAndMatch',
+		iconPath: require('../FlipAndMatch/icon.png')		
+	},
+]
+
+
+function Item({game, nav}) {
 	return (
 		<View style={styles.item}>
-			{/* TODO: Put an Icon of the App instead of a Button */}
-			<Button title={name} onPress={() => nav.navigate('Blank')}></Button>
+			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
+      	<Image style={styles.logo} source={game.iconPath} />
+    	</TouchableOpacity>
 		</View>
 	)
 }
 
 
 export default function Home({route, navigation}) {
-	const arr = [1,2,3,4,5,6,7];
 	return (
-		<SafeAreaView style={{flex:1, backgroundColor: '#000'}}>
+		<SafeAreaView style={{flex:1, backgroundColor: '#fff'}}>
 			<SafeAreaView style={styles.outContainer}>
 				<SafeAreaView style={styles.container}>
 					{
-						arr.map((e, i) => {
+						Games.map((e, i) => {
 							return (
-								<Item name={e+''} key={i} nav={navigation}></Item>
+								<Item game={e} key={i} nav={navigation}></Item>
 							);
 						})
 					}
@@ -37,7 +46,6 @@ const styles = StyleSheet.create({
 	outContainer:{
 		flex:1,
 		margin: width/50,
-    backgroundColor: '#000',
 	},
   container: {
 		flex:1,
@@ -49,6 +57,11 @@ const styles = StyleSheet.create({
 		height: width*6/25,
 		justifyContent: 'center',
 		alignItems: 'center',
-    backgroundColor: '#ddd',
-	}
+	},
+	logo: {
+    width: 65,
+    height: 65,
+    borderRadius: 20,
+    backgroundColor: '#000'
+  }
 });
