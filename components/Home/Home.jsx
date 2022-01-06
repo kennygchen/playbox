@@ -27,11 +27,7 @@ export default function Home({route, navigation}) {
 		<SafeAreaView style={{flex:1, backgroundColor: '#fff'}}>
 			<SafeAreaView style={styles.container}>
 					{
-						Games.map((e, i) => {
-							return (
-								<Item game={e} key={i} nav={navigation}></Item>
-							);
-						})
+						Games.map((e, i) => <Item game={e} key={i} nav={navigation}></Item>)
 					}
 			</SafeAreaView>
 		</SafeAreaView>

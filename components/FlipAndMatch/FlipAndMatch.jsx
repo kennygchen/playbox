@@ -12,9 +12,9 @@ const cardImage = [
 
 function Item({source, }) {
 	return (
-		<View style={style.item}>
-			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
-      			<Image style={style.logo} source={source} />
+		<View style={styles.item}>
+			<TouchableOpacity  onPress={() => console.log('hey')} >
+      			<Image style={styles.logo} source={source} />
     		</TouchableOpacity>
 		</View>
 	)
@@ -34,9 +34,10 @@ export default function FlipAndMatch({navigation}) {
 	console.log(cards, flip)
 
 	return (
+
 		<SafeAreaView style={{flex:1, backgroundColor:'#d6efff'}}>
-			<SafeAreaView style={style.container}>
-				<Text style={style.titleText}>Flip And Match</Text>
+			<SafeAreaView style={styles.container}>
+				<Text style={styles.titleText}>Flip And Match</Text>
 				<Button title='New Game' onPress={shuffle}></Button>
 				{
 					cards.map((e, i) =>
@@ -51,7 +52,7 @@ export default function FlipAndMatch({navigation}) {
 
 const {height, width} = Dimensions.get('screen');
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#d6efff',
