@@ -2,12 +2,12 @@ import * as React from 'react'
 import { StyleSheet, Button, Text, SafeAreaView, View, Image } from 'react-native'
 
 const cardImage = [
-	{"src": "../img/chrome.png"},
-	{"src": "../img/edge.png"},
-	{"src": "../img/firefox.png"},
-	{"src": "../img/ie.png"},
-	{"src": "../img/opera.png"},
-	{"src": "../img/safari.png"},
+	{"src": "../FlipAndMatch/img/chrome.png"},
+	{"src": "../FlipAndMatch/img/edge.png"},
+	{"src": "../FlipAndMatch/img/firefox.png"},
+	{"src": "../FlipAndMatch/img/ie.png"},
+	{"src": "../FlipAndMatch/img/opera.png"},
+	{"src": "../FlipAndMatch/img/safari.png"},
 ]
 
 export default function FlipAndMatch({navigation}) {
@@ -29,6 +29,7 @@ export default function FlipAndMatch({navigation}) {
 		<SafeAreaView style={style.container}>
 			<Text style={style.titleText}>Flip And Match</Text>
 			<Button title='New Game' onPress={shuffle}></Button>
+			<Image source={require('../FlipAndMatch/img/safari.png')}/>
 			<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
 		</SafeAreaView>
 	)
