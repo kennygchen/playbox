@@ -12,9 +12,9 @@ const cardImage = [
 
 function Item({source, }) {
 	return (
-		<View style={styles.item}>
+		<View style={style.item}>
 			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
-      			<Image style={styles.logo} source={source} />
+      			<Image style={style.logo} source={source} />
     		</TouchableOpacity>
 		</View>
 	)
@@ -39,9 +39,9 @@ export default function FlipAndMatch({navigation}) {
 				<Text style={style.titleText}>Flip And Match</Text>
 				<Button title='New Game' onPress={shuffle}></Button>
 				{
-					cards.map((e, i) =>{
+					cards.map((e, i) =>
 							<Item key={i} source={e.src} id={e.id} />
-					})
+					)
 				}
 				<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
 			</SafeAreaView>
