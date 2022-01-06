@@ -12,7 +12,7 @@ export default function App() {
 
   return (
 		<NavigationContainer>
-			<Stack.Navigator >
+			<Stack.Navigator>
 				<Stack.Screen name='Home' component={Home} />
 				<Stack.Screen name='FlipAndMatch' component={FlipAndMatch} options={{
 					headerShown:false, 
@@ -28,6 +28,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

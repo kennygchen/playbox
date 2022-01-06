@@ -14,8 +14,9 @@ function Item({game, nav}) {
 	return (
 		<View style={styles.item}>
 			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
-      	<Image style={styles.logo} source={game.iconPath} />
-    	</TouchableOpacity>
+      			<Image style={styles.logo} source={game.iconPath} />
+    		</TouchableOpacity>
+			<Text style={styles.appName}>{game.name}</Text>
 		</View>
 	)
 }
@@ -24,16 +25,10 @@ function Item({game, nav}) {
 export default function Home({route, navigation}) {
 	return (
 		<SafeAreaView style={{flex:1, backgroundColor: '#fff'}}>
-			<SafeAreaView style={styles.outContainer}>
-				<SafeAreaView style={styles.container}>
+			<SafeAreaView style={styles.container}>
 					{
-						Games.map((e, i) => {
-							return (
-								<Item game={e} key={i} nav={navigation}></Item>
-							);
-						})
+						Games.map((e, i) => <Item game={e} key={i} nav={navigation}></Item>)
 					}
-				</SafeAreaView>
 			</SafeAreaView>
 		</SafeAreaView>
 	)
@@ -41,17 +36,13 @@ export default function Home({route, navigation}) {
 
 const {height, width} = Dimensions.get('screen');
 
-
 const styles = StyleSheet.create({
-	outContainer:{
-		flex:1,
-		margin: width/50,
-	},
-  container: {
+  	container: {
 		flex:1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-  },
+		margin: width/50,
+  	},
 	item: {
 		width: width*6/25,
 		height: width*6/25,
@@ -59,9 +50,15 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	logo: {
-    width: 65,
-    height: 65,
-    borderRadius: 20,
-    backgroundColor: '#000'
-  }
+		flexDirection:'column',
+		width: 60,
+		height: 60,
+		borderRadius: 20,
+		backgroundColor: '#000',
+  	},
+	appName:{
+		alignSelf:'center',
+		fontSize: 13,
+		padding: 3,
+	}
 });
