@@ -14,8 +14,9 @@ function Item({game, nav}) {
 	return (
 		<View style={styles.item}>
 			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
-      	<Image style={styles.logo} source={game.iconPath} />
-    	</TouchableOpacity>
+      			<Image style={styles.logo} source={game.iconPath} />
+    		</TouchableOpacity>
+			<Text style={styles.appName}>{game.name}</Text>
 		</View>
 	)
 }
@@ -51,17 +52,23 @@ const styles = StyleSheet.create({
 		flex:1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-  },
+  	},
 	item: {
-		width: width*6/25,
-		height: width*6/25,
+		width: width*7/25,
+		height: width*7/25,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	logo: {
-    width: 65,
-    height: 65,
-    borderRadius: 20,
-    backgroundColor: '#000'
-  }
+		flexDirection:'column',
+		width: 60,
+		height: 60,
+		borderRadius: 20,
+		backgroundColor: '#000',
+  	},
+	appName:{
+		alignSelf:'center',
+		fontSize: 13,
+		padding: 3,
+	}
 });
