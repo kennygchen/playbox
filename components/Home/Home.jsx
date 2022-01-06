@@ -1,21 +1,20 @@
 import * as React from 'react'
 import { Image, TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-native';
 
-function getIconPath(name) {
-	return `../${name}/icon.png`
-}
 
 const Games = [
-	'FlipAndMatch',
+	{
+		name:'FlipAndMatch',
+		iconPath: require('../FlipAndMatch/icon.png')		
+	},
 ]
 
-function Item({name, nav}) {
+
+function Item({game, nav}) {
 	return (
 		<View style={styles.item}>
-			{/* TODO: Put an Icon of the App instead of a Button */}
-			{/* <Button title={name} onPress={() => nav.navigate(name)}></Button> */}
-			<TouchableOpacity styles={styles.overlay} onPress={() => nav.navigate(name)} >
-      	<Image style={styles.logo} source={require('../FlipAndMatch/icon.png')} />
+			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
+      	<Image style={styles.logo} source={game.iconPath} />
     	</TouchableOpacity>
 		</View>
 	)
@@ -30,7 +29,7 @@ export default function Home({route, navigation}) {
 					{
 						Games.map((e, i) => {
 							return (
-								<Item name={e} key={i} nav={navigation}></Item>
+								<Item game={e} key={i} nav={navigation}></Item>
 							);
 						})
 					}
@@ -60,13 +59,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	logo: {
-    width: 70,
-    height: 70,
+    width: 65,
+    height: 65,
     borderRadius: 20,
     backgroundColor: '#000'
-  },
-  overlay: {
-    backgroundColor: '#000',
-    borderRadius: 80,
   }
 });
