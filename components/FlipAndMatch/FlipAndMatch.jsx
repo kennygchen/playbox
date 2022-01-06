@@ -18,7 +18,6 @@ export default function FlipAndMatch({navigation}) {
 		const shuffled = [...cardImage, ...cardImage]
 			.sort(() => 0.5 - Math.random())
 			.map((card) => ({...card, id: Math.random()}))
-
 		setCards(shuffled)
 		setFlip(0)
 	}
@@ -29,7 +28,7 @@ export default function FlipAndMatch({navigation}) {
 		<SafeAreaView style={style.container}>
 			<Text style={style.titleText}>Flip And Match</Text>
 			<Button title='New Game' onPress={shuffle}></Button>
-			<Image source={require('../FlipAndMatch/img/safari.png')}/>
+			<Image source={require('../FlipAndMatch/img/safari.png')} />
 			<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
 		</SafeAreaView>
 	)
@@ -38,7 +37,7 @@ export default function FlipAndMatch({navigation}) {
 const style = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#FFF',
+		backgroundColor: '#d6efff',
 		alignItems: 'center',
 		justifyContent: 'center',
 	  },
@@ -50,3 +49,4 @@ const style = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
+
