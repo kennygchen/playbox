@@ -10,11 +10,11 @@ const cardImage = [
 	{src: require('../FlipAndMatch/img/safari.png'), id: 5},
 ]
 
-function Item({source, }) {
+function Item({source, addFlip}) {
 	return (
 		<View style={styles.item}>
-			<TouchableOpacity  onPress={() => console.log('hey')} >
-      			<Image style={styles.logo} source={source} />
+			<TouchableOpacity  onPress={addFlip} >
+      			<Image style={styles.card} source={source} />
     		</TouchableOpacity>
 		</View>
 	)
@@ -34,14 +34,16 @@ export default function FlipAndMatch({navigation}) {
 	console.log(cards, flip)
 
 	return (
-
 		<SafeAreaView style={{flex:1, backgroundColor:'#d6efff'}}>
 			<SafeAreaView style={styles.container}>
 				<Text style={styles.titleText}>Flip And Match</Text>
 				<Button title='New Game' onPress={shuffle}></Button>
 				{
 					cards.map((e, i) =>
-							<Item key={i} source={e.src} id={e.id} />
+							<Item key={i} source={e.src} id={e.id} addFlip={() => {
+								setFlip(e => e + 1);
+								console.log('hey');
+							}}/>
 					)
 				}
 				<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
@@ -58,6 +60,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#d6efff',
 		alignItems: 'center',
 		justifyContent: 'center',
+		flexWrap: 'wrap',
 	  },
 	titleText:{
 		fontSize: 30,
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	card: {
-		flexDirection:'column',
 		width: 60,
 		height: 60,
 		borderRadius: 20,
