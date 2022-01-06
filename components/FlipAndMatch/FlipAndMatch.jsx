@@ -1,84 +1,98 @@
-import * as React from 'react'
-import { Image, TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Button, Dimensions } from 'react-native'
+import * as React from "react";
+import {
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Button,
+  Dimensions,
+} from "react-native";
 
 const cardImage = [
-	{src: require('../FlipAndMatch/img/chrome.png'), id: 0},
-	{src: require('../FlipAndMatch/img/edge.png'), id: 1},
-	{src: require('../FlipAndMatch/img/firefox.png'), id: 2},
-	{src: require('../FlipAndMatch/img/ie.png'), id: 3},
-	{src: require('../FlipAndMatch/img/opera.png'), id: 4},
-	{src: require('../FlipAndMatch/img/safari.png'), id: 5},
-]
+  { src: require("../FlipAndMatch/img/chrome.png"), id: 0 },
+  { src: require("../FlipAndMatch/img/edge.png"), id: 1 },
+  { src: require("../FlipAndMatch/img/firefox.png"), id: 2 },
+  { src: require("../FlipAndMatch/img/ie.png"), id: 3 },
+  { src: require("../FlipAndMatch/img/opera.png"), id: 4 },
+  { src: require("../FlipAndMatch/img/safari.png"), id: 5 },
+];
 
-function Item({source, addFlip}) {
-	return (
-		<View style={styles.item}>
-			<TouchableOpacity  onPress={addFlip} >
-      			<Image style={styles.card} source={source} />
-    		</TouchableOpacity>
-		</View>
-	)
+function Item({ source, addFlip }) {
+  return (
+    <View style={styles.item}>
+      <TouchableOpacity onPress={addFlip}>
+        <Image style={styles.card} source={source} />
+      </TouchableOpacity>
+    </View>
+  );
 }
 
-export default function FlipAndMatch({navigation}) {
-	const [flip, setFlip] = React.useState(0)
-	const [cards, setCards] = React.useState([])
+export default function FlipAndMatch({ navigation }) {
+  const [flip, setFlip] = React.useState(0);
+  const [cards, setCards] = React.useState([]);
 
-	const shuffle = () =>{
-		const shuffled = [...cardImage, ...cardImage]
-			.sort(() => 0.5 - Math.random())
-		setCards(shuffled)
-		setFlip(0)
-	}
+  const shuffle = () => {
+    const shuffled = [...cardImage, ...cardImage].sort(
+      () => 0.5 - Math.random()
+    );
+    setCards(shuffled);
+    setFlip(0);
+  };
 
-	console.log(cards, flip)
+  console.log(cards, flip);
 
-	return (
-		<SafeAreaView style={{flex:1, backgroundColor:'#d6efff'}}>
-			<SafeAreaView style={styles.container}>
-				<Text style={styles.titleText}>Flip And Match</Text>
-				<Button title='New Game' onPress={shuffle}></Button>
-				{
-					cards.map((e, i) =>
-							<Item key={i} source={e.src} id={e.id} addFlip={() => {
-								setFlip(e => e + 1);
-								console.log('hey');
-							}}/>
-					)
-				}
-				<Button title='Back' onPress={() => navigation.navigate('Home')}></Button>
-			</SafeAreaView>
-		</SafeAreaView>
-	)
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#d6efff" }}>
+      <Text style={styles.titleText}>Flip And Match</Text>
+      <Button title="New Game" onPress={shuffle}></Button>
+      <SafeAreaView style={styles.container}>
+        {cards.map((e, i) => (
+          <Item
+            key={i}
+            source={e.src}
+            id={e.id}
+            addFlip={() => {
+              setFlip((e) => e + 1);
+              console.log("hey");
+            }}
+          />
+        ))}
+      </SafeAreaView>
+      <Button title="Back" onPress={() => navigation.navigate("Home")}></Button>
+    </SafeAreaView>
+  );
 }
 
-const {height, width} = Dimensions.get('screen');
+const { height, width } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#d6efff',
-		alignItems: 'center',
-		justifyContent: 'center',
-		flexWrap: 'wrap',
-	  },
-	titleText:{
-		fontSize: 30,
-		fontWeight: "bold",
-		alignSelf: 'center',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	item: {
-		width: width*7/25,
-		height: width*7/25,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	card: {
-		width: 60,
-		height: 60,
-		borderRadius: 20,
-		backgroundColor: '#000',
-  	},
+  container: {
+    flex: 1,
+    backgroundColor: "#d6efff",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
+		margin: width/50,
+		flexDirection: 'row',
+  },
+  titleText: {
+    fontSize: 30,
+    fontWeight: "bold",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  item: {
+    width: (width * 6) / 25,
+    height: (width * 6) / 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  card: {
+    width: 60,
+    height: 60,
+    borderRadius: 5,
+  },
 });

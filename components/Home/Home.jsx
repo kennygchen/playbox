@@ -37,10 +37,6 @@ export default function Home({route, navigation}) {
 const {height, width} = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
-	outContainer:{
-		flex:1,
-		margin: width/50,
-	},
   	container: {
 		flex:1,
 		flexDirection: 'row',
@@ -48,8 +44,8 @@ const styles = StyleSheet.create({
 		margin: width/50,
   	},
 	item: {
-		width: width*7/25,
-		height: width*7/25,
+		width: width*6/25,
+		height: width*6/25,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
