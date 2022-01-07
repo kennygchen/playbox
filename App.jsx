@@ -14,10 +14,10 @@ export default function App() {
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name='Home' component={Home} />
-				<Stack.Screen name='FlipAndMatch' component={FlipAndMatch} options={{
-					headerShown:false, 
-					gestureEnabled: false
-				}}/>
+					<Stack.Screen name="FlipAndMatch" component={FlipAndMatch} options={{
+						headerShown:false, 
+						gestureEnabled: false
+					}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
   );
