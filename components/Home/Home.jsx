@@ -10,6 +10,7 @@ const Games = [
 	},
 	{
 		name:'Snake',
+		displayName: 'Snake',
 		iconPath: require('../Snake/icon.png')		
 	},
 ]

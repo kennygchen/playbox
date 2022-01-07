@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import FlipAndMatch from './components/FlipAndMatch/FlipAndMatch.jsx'
 import Home from './components/Home/Home.jsx'
+import Snake from './components/Snake'
 
 const Stack = createNativeStackNavigator();
 
@@ -14,19 +15,15 @@ export default function App() {
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name='Home' component={Home} />
-					<Stack.Screen name="FlipAndMatch" component={FlipAndMatch} options={{
-						headerShown:false, 
-						gestureEnabled: false
-					}}/>
+				<Stack.Screen name="FlipAndMatch" component={FlipAndMatch} options={{
+					headerShown:false, 
+					gestureEnabled: false
+				}}/>
+				<Stack.Screen name="Snake" component={Snake} options={{
+					headerShown:false, 
+					gestureEnabled: false
+				}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-  },
-});
