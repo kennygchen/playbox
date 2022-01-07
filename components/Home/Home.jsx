@@ -5,6 +5,7 @@ import { Image, TouchableOpacity, StyleSheet, Text, View, SafeAreaView, Button, 
 const Games = [
 	{
 		name:'FlipAndMatch',
+		displayName: 'Flip&Match',
 		iconPath: require('../FlipAndMatch/icon.png')		
 	},
 	{
@@ -20,7 +21,7 @@ function Item({game, nav}) {
 			<TouchableOpacity  onPress={() => nav.navigate(game.name)} >
       			<Image style={styles.logo} source={game.iconPath} />
     		</TouchableOpacity>
-			<Text style={styles.appName}>{game.name}</Text>
+			<Text style={styles.appName}>{game.displayName}</Text>
 		</View>
 	)
 }
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   	},
 	appName:{
 		alignSelf:'center',
-		fontSize: 13,
+		fontSize: 12,
 		padding: 3,
 	}
 });
