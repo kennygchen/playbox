@@ -9,7 +9,9 @@ import {
   Button,
   Dimensions,
 } from "react-native";
-
+import { Ionicons } from '@expo/vector-icons';
+import Icon from './Icon.jsx'
+import * as Font from 'expo-font'
 
 const coverImage = require("../FlipAndMatch/img/cover.png")
 const cardImage = [
@@ -30,7 +32,7 @@ const iconNames = [
 	'bulb',
 ]
 
-function Item({ card, onPress }) {
+function Item2({ card, onPress }) {
   return (
     <View style={styles.item}>
       {card.isShown && <TouchableOpacity onPress={onPress}>
@@ -40,7 +42,7 @@ function Item({ card, onPress }) {
   );
 }
 
-function Item2({ card, onPress }) {
+function Item({ card, onPress }) {
   return (
     <View style={styles.item}>
 			<View>
@@ -62,12 +64,14 @@ function Item2({ card, onPress }) {
 export default function FlipAndMatch({ navigation }) {
   const [flip, setFlip] = React.useState(0);
   const [cards, setCards] = React.useState([]);
+	const [isLoading, setIsLoading] = React.useState(true);
 
 	React.useEffect(() => {
 		shuffle()
+		Font.loadAsync({'test': require('./assets/icomoon.ttf')}).then(setIsLoading(false))
 	}, [])
 
-  const shuffle = () => {
+  const shuffle2 = () => {
     const shuffled = [...cardImage, ...cardImage]
 			.sort(() => 0.5 - Math.random())
 			.map((card) => ({...card, isShown:true, isFlipped: false}))
@@ -75,7 +79,7 @@ export default function FlipAndMatch({ navigation }) {
     setFlip(0);
   };
 
-	const shuffle2= () => {
+	const shuffle= () => {
     const shuffled = [...iconNames, ...iconNames]
 			.map((name) => ({name:name, isShown:true, isFlipped: true}))
 			.sort(() => 0.5 - Math.random())
@@ -88,6 +92,8 @@ export default function FlipAndMatch({ navigation }) {
 			<SafeAreaView style={{width: "100%", height: 250, justifyContent: 'center', alignItems: 'center'}}>
 				<Text style={styles.titleText}>Flip And Match</Text>
 				<Button title="New Game" onPress={shuffle}></Button>
+				{/* {!isLoading && <Icon name='Freesample' color='#fff' size={60}/>} */}
+				{/* {!isLoading && <Icon name='ie' color='#fff' size={60}/>} */}
 			</SafeAreaView>
       <SafeAreaView style={styles.container}>
         {cards.map((e, i) => (
