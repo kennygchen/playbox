@@ -7,6 +7,10 @@ const Games = [
 		name:'FlipAndMatch',
 		iconPath: require('../FlipAndMatch/icon.png')		
 	},
+	{
+		name:'Snake',
+		iconPath: require('../Snake/icon.png')		
+	},
 ]
 
 
