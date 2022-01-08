@@ -56,7 +56,7 @@ export default function Snake({navigation}) {
 
 			// Create new food according to foodCD
 			const newFood = [...game.food];
-			if (game.foodCD == maxFoodCD) {
+			if (game.foodCD == maxFoodCD && newFood.length < 5) {
 				newFood.push(getNewFood(game.snake));
 			} 
 
@@ -134,8 +134,8 @@ export default function Snake({navigation}) {
 					setGame(game => ({
 						...game,
 						direction: {
-							x: Math.abs(diff.x) < Math.abs(diff.y) ? (diff.x < 0 ? -1 : 1) : 0,
-							y: Math.abs(diff.x) >= Math.abs(diff.y) ? (diff.y < 0 ? -1 : 1) : 0,
+							x: Math.abs(diff.x) > Math.abs(diff.y) ? (diff.x < 0 ? -1 : 1) : 0,
+							y: Math.abs(diff.x) <= Math.abs(diff.y) ? (diff.y < 0 ? -1 : 1) : 0,
 						} 
 					}))
 				}
