@@ -134,8 +134,8 @@ export default function Snake({navigation}) {
 					setGame(game => ({
 						...game,
 						direction: {
-							x: Math.max(Math.abs(diff.x), Math.abs(diff.y)) == Math.abs(diff.x) ? (diff.x < 0 ? -1 : 1) : 0,
-							y: Math.max(Math.abs(diff.x), Math.abs(diff.y)) == Math.abs(diff.y) ? (diff.y < 0 ? -1 : 1) : 0,
+							x: Math.abs(diff.x) < Math.abs(diff.y) ? (diff.x < 0 ? -1 : 1) : 0,
+							y: Math.abs(diff.x) >= Math.abs(diff.y) ? (diff.y < 0 ? -1 : 1) : 0,
 						} 
 					}))
 				}
