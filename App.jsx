@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import FlipAndMatch from './components/FlipAndMatch/FlipAndMatch.jsx'
 import Home from './components/Home/Home.jsx'
-import Snake from './components/Snake'
+import Snake1 from './components/Snake-canvas'
+import Snake2 from './components/Snake-views'
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,11 @@ export default function App() {
 					headerShown:false, 
 					gestureEnabled: false
 				}}/>
-				<Stack.Screen name="Snake" component={Snake} options={{
+				<Stack.Screen name="Snake-canvas" component={Snake1} options={{
+					headerShown:false, 
+					gestureEnabled: false
+				}}/>
+				<Stack.Screen name="Snake-views" component={Snake2} options={{
 					headerShown:false, 
 					gestureEnabled: false
 				}}/>

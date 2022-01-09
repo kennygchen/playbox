@@ -9,9 +9,14 @@ const Games = [
 		iconPath: require('../FlipAndMatch/icon.png')		
 	},
 	{
-		name:'Snake',
-		displayName: 'Snake',
-		iconPath: require('../Snake/icon.png')		
+		name:'Snake-canvas',
+		displayName: 'Snake1.0',
+		iconPath: require('../Snake-canvas/icon.png')		
+	},
+	{
+		name:'Snake-views',
+		displayName: 'Snake2.0',
+		iconPath: require('../Snake-views/icon.png')		
 	},
 ]
 
