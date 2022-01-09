@@ -19,8 +19,8 @@ export default function Board({rows,cols,grid,gameOver,score}) {
 }
 
 function Row({cols, row, grid}) {
-	const WHITE = "#fff"
-	const BLACK = "#000"
+	const WHITE = "purple"
+	const BLACK = "grey"
 	const RED = "#f2b195"
 	return (
 		<View style={{flex:1, flexDirection:'row'}}>

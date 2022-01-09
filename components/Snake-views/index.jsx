@@ -113,7 +113,7 @@ export default function Snake({navigation}) {
 				}
 				setTouch(null)
 			}}
-			style={{width: maxWidth + 20, height: maxWidth + 20, justifyContent: 'center', alignItems: 'center'}}>
+			style={{width: maxWidth + 20, height: maxWidth + 20, justifyContent: 'center', alignItems: 'center', backgroundColor:'#000'}}>
 				<View style={{width: maxWidth, height: maxWidth,}}>
 					<Board rows={ROWS} cols={COLS} grid={game.grid} gameOver={game.gameOver} score={game.score}/>
 				</View>

@@ -107,7 +107,7 @@ export default function Snake({navigation}) {
 			}
 		}
 		for (let i = 0; i < game.food.length; i++) {
-			board.fillStyle = 'red';
+			board.fillStyle = '#f2b195';
 			board.fillRect(game.food[i].x, game.food[i].y, blockWidth,blockWidth);
 		}
 	}

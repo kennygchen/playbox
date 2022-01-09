@@ -10,12 +10,12 @@ const Games = [
 	},
 	{
 		name:'Snake-canvas',
-		displayName: 'Snake1.0',
+		displayName: 'Snake-canvas',
 		iconPath: require('../Snake-canvas/icon.png')		
 	},
 	{
 		name:'Snake-views',
-		displayName: 'Snake2.0',
+		displayName: 'Snake-views',
 		iconPath: require('../Snake-views/icon.png')		
 	},
 ]
