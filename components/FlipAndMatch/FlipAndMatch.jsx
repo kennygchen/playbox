@@ -42,10 +42,7 @@ function Item({ card, onPress }) {
 					card.isShown && 
 					<TouchableOpacity 
 					style={card.isFlipped?styles.card_flipped_first_layer:styles.card_first_layer} 
-					onPress={() => {
-						onPress();
-						card.isFlipped = !card.isFlipped;
-						}}>
+					onPress={onPress}>
 						<View style={card.isFlipped?styles.card_flipped_second_layer:styles.card_second_layer}>
 							{card.isFlipped && <Ionicons name={card.name} size={40} color='#f7cf5c' />}
 						</View>
@@ -77,8 +74,10 @@ export default function FlipAndMatch({ navigation }) {
 	const [cardOne, setCardOne] = React.useState(null)
 	const [cardTwo, setCardTwo] = React.useState(null)
   
-	const handleClick = (e) => {
-		cardOne ? setCardTwo(e) : setCardOne(e)
+	const handleClick = (card) => {
+		if (cardOne && cardTwo) return
+		cardOne ? setCardTwo(card) : setCardOne(card)
+		card.isFlipped = true;
 	}
   
 	React.useEffect(() => {
