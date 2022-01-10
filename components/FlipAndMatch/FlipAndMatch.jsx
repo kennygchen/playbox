@@ -54,7 +54,7 @@ function Item({ card, onPress }) {
 }
 
 export default function FlipAndMatch({ navigation }) {
-	const [flip, setFlip] = React.useState(0);
+	const [turns, setTurns] = React.useState(0);
 	const [cards, setCards] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 
@@ -68,14 +68,14 @@ export default function FlipAndMatch({ navigation }) {
 			.map((name, i) => ({name:name, isShown:true, isFlipped: false, id: i}))
 			.sort(() => 0.5 - Math.random())
     setCards(shuffled);
-    setFlip(0);
+		setTurns(0)
   	};
 
 	const [cardOne, setCardOne] = React.useState(null)
 	const [cardTwo, setCardTwo] = React.useState(null)
   
 	const handleClick = (card) => {
-		if (cardOne && cardTwo) return
+		if (cardOne && cardTwo || (cardOne && cardOne.id == card.id)) return
 		cardOne ? setCardTwo(card) : setCardOne(card)
 		card.isFlipped = true;
 	}
@@ -97,6 +97,7 @@ export default function FlipAndMatch({ navigation }) {
 				} else {
 					resetChoice();
 				}
+				setTurns(e => e + 1)
 			}
 		}, 500);
 	}, [cardOne, cardTwo])
@@ -114,12 +115,11 @@ return (
 				<Pressable style={styles.button} onPress={shuffle}>
 					<Text style={styles.buttonText}>New Game</Text>
 				</Pressable>
-				{/* <Button title="New Game" onPress={shuffle}></Button> */}
 				{/* {!isLoading && <Icon name='Freesample' color='#fff' size={60}/>} */}
 				{/* {!isLoading && <Icon name='ie' color='#fff' size={60}/>} */}
 			</SafeAreaView>
 		<SafeAreaView style={styles.text}>
-			<Text style={styles.text}>Flip: {flip}</Text>
+			<Text style={styles.text}>Turns: {turns}</Text>
 		</SafeAreaView>
 		<SafeAreaView style={styles.container}>
 			{cards.map((e, i) => (
@@ -127,7 +127,6 @@ return (
 				key={i}
 				card={e}
 				onPress={() => {
-					setFlip((e) => e + 1);
 					handleClick(e);
 				}}
 			/>
