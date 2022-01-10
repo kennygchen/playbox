@@ -83,22 +83,22 @@ export default function FlipAndMatch({ navigation }) {
   
 	React.useEffect(() => {
 		setTimeout(() =>{
-		if(cardOne && cardTwo) {
-			if(cardOne.name === cardTwo.name) {
-				setCards((cards) => {
-					const newCards = [...cards];
-					for (let i = 0; i < newCards.length; i++) {
-						if (newCards[i].name === cardOne.name){
-							newCards[i].isShown = false;
+			if(cardOne && cardTwo) {
+				if(cardOne.name === cardTwo.name) {
+					setCards((cards) => {
+						const newCards = [...cards];
+						for (let i = 0; i < newCards.length; i++) {
+							if (newCards[i].name === cardOne.name){
+								newCards[i].isShown = false;
+							}
 						}
-					}
-					return newCards;
-				})
-				resetChoice();
-			} else {
-				resetChoice();
+						return newCards;
+					})
+					resetChoice();
+				} else {
+					resetChoice();
+				}
 			}
-		}
 		}, 500);
 	}, [cardOne, cardTwo])
 	  
