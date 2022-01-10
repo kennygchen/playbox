@@ -68,7 +68,7 @@ export default function FlipAndMatch({ navigation }) {
 
 	const shuffle= () => {
     const shuffled = [...iconNames, ...iconNames]
-			.map((name) => ({name:name, isShown:true, isFlipped: false}))
+			.map((name, i) => ({name:name, isShown:true, isFlipped: false, id: i}))
 			.sort(() => 0.5 - Math.random())
     setCards(shuffled);
     setFlip(0);
@@ -84,7 +84,7 @@ export default function FlipAndMatch({ navigation }) {
 	React.useEffect(() => {
 		setTimeout(() =>{
 			if(cardOne && cardTwo) {
-				if(cardOne.name === cardTwo.name) {
+				if(cardOne.name === cardTwo.name && cardOne.id != cardTwo.id) {
 					setCards((cards) => {
 						const newCards = [...cards];
 						for (let i = 0; i < newCards.length; i++) {
