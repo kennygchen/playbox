@@ -33,15 +33,6 @@ const iconNames = [
 	'bulb',
 ]
 
-function Item2({ card, onPress }) {
-  return (
-    <View style={styles.item}>
-      {card.isShown && <TouchableOpacity onPress={onPress}>
-        <Image style={styles.card_first_layer} source={card.isFlipped? card.src : coverImage} />
-      </TouchableOpacity>}
-    </View>
-  );
-}
 
 function Item({ card, onPress }) {
   return (
@@ -51,7 +42,10 @@ function Item({ card, onPress }) {
 					card.isShown && 
 					<TouchableOpacity 
 					style={card.isFlipped?styles.card_flipped_first_layer:styles.card_first_layer} 
-					onPress={() => { onPress(); card.isFlipped = !card.isFlipped; }}>
+					onPress={() => {
+						onPress();
+						card.isFlipped = !card.isFlipped;
+						}}>
 						<View style={card.isFlipped?styles.card_flipped_second_layer:styles.card_second_layer}>
 							{card.isFlipped && <Ionicons name={card.name} size={40} color='#f7cf5c' />}
 						</View>
@@ -63,8 +57,8 @@ function Item({ card, onPress }) {
 }
 
 export default function FlipAndMatch({ navigation }) {
-  const [flip, setFlip] = React.useState(0);
-  const [cards, setCards] = React.useState([]);
+	const [flip, setFlip] = React.useState(0);
+	const [cards, setCards] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 
 	React.useEffect(() => {
@@ -72,23 +66,51 @@ export default function FlipAndMatch({ navigation }) {
 		Font.loadAsync({'test': require('./assets/icomoon.ttf')}).then(setIsLoading(false))
 	}, [])
 
-  const shuffle2 = () => {
-    const shuffled = [...cardImage, ...cardImage]
-			.sort(() => 0.5 - Math.random())
-			.map((card) => ({...card, isShown:true, isFlipped: false}))
-    setCards(shuffled);
-    setFlip(0);
-  };
-
 	const shuffle= () => {
     const shuffled = [...iconNames, ...iconNames]
-			.map((name) => ({name:name, isShown:true, isFlipped: true}))
+			.map((name) => ({name:name, isShown:true, isFlipped: false}))
 			.sort(() => 0.5 - Math.random())
     setCards(shuffled);
     setFlip(0);
-  };
+  	};
 
-  return (
+	const [cardOne, setCardOne] = React.useState(null)
+	const [cardTwo, setCardTwo] = React.useState(null)
+  
+	const handleClick = (e) => {
+		cardOne ? setCardTwo(e) : setCardOne(e)
+	}
+  
+	React.useEffect(() => {
+		if(cardOne && cardTwo) {
+			if(cardOne.name === cardTwo.name) {
+				console.log("match")
+				setCards((cards) => {
+					const newCards = [...cards];
+					for (let i = 0; i < newCards.length; i++) {
+						if (newCards[i].name === cardOne.name){
+							newCards[i].isShown = false;
+						}
+					}
+					return newCards;
+				})
+				resetChoice();
+			} else {
+				console.log("not match");
+				resetChoice();
+			}
+		}
+	}, [cardOne, cardTwo])
+	  
+	const resetChoice = () => {
+		setCardOne(null)
+		setCardTwo(null)
+		setTimeout(
+			() => setCards(cards => cards.map(card => ({...card, isFlipped: false})))
+		, 500)
+	}
+
+return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#111", alignItems: 'center'}}>
 			<SafeAreaView style={{width: "100%", height: 250, justifyContent: 'center', alignItems: 'center'}}>
 				<Text style={styles.titleText}>Flip And Match</Text>
@@ -108,7 +130,8 @@ export default function FlipAndMatch({ navigation }) {
 				key={i}
 				card={e}
 				onPress={() => {
-				setFlip((e) => e + 1);
+					setFlip((e) => e + 1);
+					handleClick(e);
 				}}
 			/>
 			))}
