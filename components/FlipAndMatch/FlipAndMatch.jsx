@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  Image,
   TouchableOpacity,
   StyleSheet,
   Text,
@@ -9,6 +8,8 @@ import {
   Button,
   Dimensions,
   Pressable,
+	StatusBar,
+	Platform
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import Icon from './Icon.jsx'
@@ -64,6 +65,12 @@ export default function FlipAndMatch({ navigation }) {
 	const animation = React.useRef(null)
 
 	React.useEffect(() => {
+		if (Platform.OS === 'ios') 
+			StatusBar.setHidden(true)
+		else {
+			StatusBar.setBackgroundColor('#FF573300'); 
+			StatusBar.setTranslucent(true)
+		}
 		shuffle()
 		Font.loadAsync({'test': require('./assets/icomoon.ttf')}).then(setIsLoading(false))
 	}, [])

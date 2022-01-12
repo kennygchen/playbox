@@ -22,12 +22,13 @@ export default function Status({
     Bomb: require('./bomb.ttf'),
   });
   const [open, setOpen] = React.useState(false)
+	const [closeButton, setCloseButton] = React.useState(false);
 	const progress = useSharedValue(0);
+	const opacityProgress = useSharedValue(0);
 	const rStyle_menu = useAnimatedStyle(() => (
 		{
-			opacity: progress.value,
+			opacity: opacityProgress.value,
 			transform:[
-				{ scale: progress.value },
 				{ translateX: (1-progress.value)*500 },
 				{ translateY: (1-progress.value)*-800 }
 			]
@@ -67,7 +68,12 @@ export default function Status({
                 <Ionicons name='reload' style={styles.replay} color={color} size={30} />
               </TouchableOpacity>
             }
-            <TouchableOpacity onPress={() => { progress.value = withSpring(1); setOpen(true);}} >
+            <TouchableOpacity onPress={() => { 
+							progress.value = withSpring(1); 
+							opacityProgress.value = withTiming(1); 
+							setOpen(true);
+							setCloseButton(true);
+						}} >
               <Ionicons name='list' style={styles.menu_icon} color={color} size={30} />
             </TouchableOpacity>
           </View>
@@ -80,9 +86,16 @@ export default function Status({
 								<Animated.View style={[styles.menu_container, rStyle_menu]}>
 									{menu}
 								</Animated.View>
-								<TouchableOpacity style={styles.close_icon} onPress={() => { progress.value = withSpring(0); setTimeout(() => setOpen(false), 150)}}>
-									<Text style={{color: color, fontFamily: 'Bomb', fontSize: 38}}>x</Text>
-								</TouchableOpacity>
+								{ closeButton &&
+									<TouchableOpacity style={styles.close_icon} onPress={() => { 
+										progress.value = 0;
+										opacityProgress.value = 0;
+										setOpen(false)
+										setCloseButton(false);
+									}}>
+										<Text style={{color: color, fontFamily: 'Bomb', fontSize: 38}}>x</Text>
+									</TouchableOpacity>
+								}
 							</View>
 						</View>
 					)}
@@ -138,17 +151,17 @@ const styles = StyleSheet.create({
   },
   menu_container: {
     flex: 1,
-    marginTop: 150,
-    marginBottom: 150,
-    marginLeft: 50,
-    marginRight: 50,
+    marginTop: 120,
+    marginBottom: 90,
+    marginLeft: 20,
+    marginRight: 20,
     borderRadius: 30,
     overflow: 'hidden'
   },
   close_icon: {
     position: 'absolute',
-    top: 140,
-    right: 40,
+    top: 130,
+    right: 30,
     width: 40,
     height: 40,
     borderRadius: 20,
