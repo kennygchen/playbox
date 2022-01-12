@@ -13,6 +13,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import Icon from './Icon.jsx'
 import * as Font from 'expo-font'
+import Status from '../../modules/Status'
+import Menu from '../../modules/Status/menu.jsx'
 
 const coverImage = require("../FlipAndMatch/img/cover.png")
 const cardImage = [
@@ -57,18 +59,27 @@ export default function FlipAndMatch({ navigation }) {
 	const [turns, setTurns] = React.useState(0);
 	const [cards, setCards] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
+	const [score, setScore] = React.useState(0);
+	const [animation_value, setAnimation_Value] = React.useState(null);
+	const animation = React.useRef(null)
 
 	React.useEffect(() => {
 		shuffle()
 		Font.loadAsync({'test': require('./assets/icomoon.ttf')}).then(setIsLoading(false))
 	}, [])
 
+	React.useEffect(() => {
+		if (!animation_value) return;
+		animation.current();
+	}, [animation_value])
+
 	const shuffle= () => {
     const shuffled = [...iconNames, ...iconNames]
 			.map((name, i) => ({name:name, isShown:true, isFlipped: false, id: i}))
 			.sort(() => 0.5 - Math.random())
     setCards(shuffled);
-		setTurns(0)
+		setTurns(0);
+		setScore(0);
   	};
 
 	const [cardOne, setCardOne] = React.useState(null)
@@ -91,6 +102,8 @@ export default function FlipAndMatch({ navigation }) {
 								newCards[i].isShown = false;
 							}
 						}
+						setScore(s => s + 10);
+						setAnimation_Value({score:10});
 						return newCards;
 					})
 					resetChoice();
@@ -112,8 +125,11 @@ return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#111", alignItems: 'center'}}>
 			<SafeAreaView style={{width: "100%", height: 250, justifyContent: 'center', alignItems: 'center'}}>
 				<Text style={styles.titleText}>Flip And Match</Text>
-				<Pressable style={styles.button} onPress={shuffle}>
-					<Text style={styles.buttonText}>New Game</Text>
+				<Pressable style={styles.button} onPress={() => {
+					setScore(e => e + 100);
+					setAnimation_Value({score: 100})
+				}}>
+					<Text style={styles.buttonText}>Add Score</Text>
 				</Pressable>
 				{/* {!isLoading && <Icon name='Freesample' color='#fff' size={60}/>} */}
 				{/* {!isLoading && <Icon name='ie' color='#fff' size={60}/>} */}
@@ -135,6 +151,15 @@ return (
 	  <Pressable style={styles.button} onPress={() => navigation.navigate("Home")}>
 					<Text style={styles.buttonText}>Back</Text>
 				</Pressable>
+			<Status 
+			name='Score'
+			value={score} 
+			color={'white'} 
+			replay={shuffle} 
+			menu={<Menu/>} 
+			animation={animation}
+			animation_value={animation_value}
+			/>
    </SafeAreaView>
   );
 }
