@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { 
+	View, 
+	Text, 
+	StyleSheet, 
+	TouchableOpacity, 
+	Pressable 
+} from 'react-native';
 import { useFonts } from 'expo-font';
 import { Ionicons } from '@expo/vector-icons'
 import Animated, { 
@@ -8,6 +14,7 @@ import Animated, {
 	withSpring,
 	withTiming,
 } from 'react-native-reanimated'
+import FinalScores from './FinalScores';
 
 export default function Status({
   name, 
@@ -16,13 +23,17 @@ export default function Status({
 	animation_value,
   color,
   replay,
-  menu
+  menu,
+	gameOver,
+	gameOver_list
 }) {
   const [loaded] = useFonts({
     Bomb: require('./bomb.ttf'),
   });
   const [open, setOpen] = React.useState(false)
 	const [closeButton, setCloseButton] = React.useState(false);
+
+	// menu animation
 	const progress = useSharedValue(0);
 	const opacityProgress = useSharedValue(0);
 	const rStyle_menu = useAnimatedStyle(() => (
@@ -35,6 +46,7 @@ export default function Status({
 		}	
 	))
 
+	// Score animation
 	React.useEffect(() => {
 		if (!animation) return;
 		animation.current = () => {
@@ -50,6 +62,34 @@ export default function Status({
 			]
 		}	
 	))
+
+	// End screen animation
+	const [endScreen, setEndScreen] = React.useState(false);
+	const [replayButton, setReplayButton] = React.useState(false);
+	React.useEffect(() => {
+		if (!gameOver) return;
+		gameOver.current = () => {
+			setEndScreen(true);
+			setReplayButton(true);
+			end_progress.value = withTiming(1);
+		}
+	}, [])
+	const end_progress = useSharedValue(0);
+	const rStyle_end = useAnimatedStyle(() => (
+		{
+			opacity: end_progress.value,
+			transform: [
+				{ translateX: (1-end_progress.value) * -500 }
+			]
+		}
+	));
+
+	const close_end_screen = () => {
+		end_progress.value = 0;
+		setEndScreen(false)
+		setReplayButton(false);
+		replay();
+	}
 
   if (!loaded) { return null;}
   return (
@@ -99,11 +139,18 @@ export default function Status({
 							</View>
 						</View>
 					)}
+				{ endScreen && (
+						<View style={styles.fullscreen} >
+							<View style={styles.outter}>
+								<Animated.View style={[styles.menu_container, rStyle_end]}>
+									<FinalScores list={gameOver_list} close={close_end_screen}/>
+								</Animated.View>
+							</View>
+						</View>
+					)}
 			</>
   )
 }
-
-
 
 const styles = StyleSheet.create({
   container: {

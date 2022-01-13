@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
   title_text: {
     color: 'black',
     fontFamily: 'Bomb',
-    fontSize: 30
+    fontSize: 40
   },
   regular_text: {
     color: 'black',
     fontFamily: 'Bomb',
-    fontSize: 20
+    fontSize: 30
   },
   line: {
     width: "100%",

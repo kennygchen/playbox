@@ -63,6 +63,7 @@ export default function FlipAndMatch({ navigation }) {
 	const [score, setScore] = React.useState(0);
 	const [animation_value, setAnimation_Value] = React.useState(null);
 	const animation = React.useRef(null)
+	const gameOver = React.useRef(null)
 
 	React.useEffect(() => {
 		if (Platform.OS === 'ios') 
@@ -118,6 +119,10 @@ export default function FlipAndMatch({ navigation }) {
 					resetChoice();
 				}
 				setTurns(e => e + 1)
+				for (let i = 0; i < cards.length; i++) {
+					if (cards[i].isShown) return;
+				}
+				gameOver.current();
 			}
 		}, 500);
 	}, [cardOne, cardTwo])
@@ -136,7 +141,7 @@ return (
 					setScore(e => e + 100);
 					setAnimation_Value({score: 100})
 				}}>
-					<Text style={styles.buttonText}>Add Score</Text>
+					<Text style={styles.buttonText}>Add 100 points</Text>
 				</Pressable>
 				{/* {!isLoading && <Icon name='Freesample' color='#fff' size={60}/>} */}
 				{/* {!isLoading && <Icon name='ie' color='#fff' size={60}/>} */}
@@ -166,6 +171,16 @@ return (
 			menu={<Menu/>} 
 			animation={animation}
 			animation_value={animation_value}
+			gameOver={gameOver}
+			gameOver_list={[
+				"TITLEGame Over",
+				"/",
+				`INT/Score:/${score}`,
+				`INT/Turns:/${turns}`,
+				`INT/Time:/${20}s`,
+				"/",
+				`INT/Final Score:/${score - turns - 20}`,
+			]}
 			/>
    </SafeAreaView>
   );
