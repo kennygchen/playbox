@@ -15,8 +15,37 @@ import Animated, {
 	withSpring,
 	withTiming,
 } from 'react-native-reanimated'
+import { transform } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 export default function FinalScores({list, close}) {
+	const progress = useSharedValue(0);
+	const [blinkShown, setBlinkShown] = React.useState(false)
+	const rStyle_left = useAnimatedStyle(() => (
+		{
+			transform: [
+				{translateX: (1-progress.value) * -200}
+			]
+		}
+	))
+	const rStyle_right = useAnimatedStyle(() => (
+		{
+			transform: [
+				{translateX: (1-progress.value) * 200}
+			]
+		}
+	))
+	const rStyle_title = useAnimatedStyle(() => (
+		{
+			transform: [
+				{scale: progress.value * 1.2}
+			]
+		}
+	))
+
+	React.useEffect(() => {
+		progress.value = withTiming(1, {duration: 1000})
+	}, [])
+
 	return (
 		<Pressable 
 		style={styles.container}
@@ -24,7 +53,9 @@ export default function FinalScores({list, close}) {
 		>
 			{
 				list.map((e, i) => 
-					<Display key={i} str={e} />
+					<Animated.View key={i} style={i == 0 ? rStyle_title : (Math.random() < 0.5 ? rStyle_left : rStyle_right)}>
+						<Display str={e} />
+					</Animated.View>
 				)
 			}
 			<Blink text='Tap anywhere to continue'></Blink>
@@ -108,6 +139,7 @@ const styles = StyleSheet.create({
 	},
 	integer_container: {
 		flexDirection: 'row',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		margin: 10
 	},
 });

@@ -27,9 +27,7 @@ export default function Status({
 	gameOver,
 	gameOver_list
 }) {
-  const [loaded] = useFonts({
-    Bomb: require('./bomb.ttf'),
-  });
+  
   const [open, setOpen] = React.useState(false)
 	const [closeButton, setCloseButton] = React.useState(false);
 
@@ -91,7 +89,6 @@ export default function Status({
 		replay();
 	}
 
-  if (!loaded) { return null;}
   return (
 		<>
       <View style={styles.container}>
