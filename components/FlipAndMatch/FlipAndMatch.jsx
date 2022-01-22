@@ -38,27 +38,39 @@ const iconNames = [
 	'bulb',
 ]
 
-function Side({card, onPress}) {
+function FrontSide({card, onPress}) {
+	if (!card.isShown) return null;
+	return (
+		<View style={styles.card_flipped_first_layer}>
+			<View style={styles.card_flipped_second_layer}>
+				<Ionicons name={card.name} size={40} color='#f7cf5c' />
+			</View>
+		</View>
+	)
+}
+
+function BackSide({card, onPress}) {
+	if (!card.isShown) return null;
 	return (
 		<TouchableOpacity 
-		style={card.isFlipped?styles.card_flipped_first_layer:styles.card_first_layer} 
-		onPress={onPress}>
-			<View style={card.isFlipped?styles.card_flipped_second_layer:styles.card_second_layer}>
-				{card.isFlipped && <Ionicons name={card.name} size={40} color='#f7cf5c' />}
-			</View>
+		style={styles.card_first_layer} 
+		onPress={onPress}
+		>
+			<View style={styles.card_second_layer}></View>
 		</TouchableOpacity>
 	)
 }
 
+
+
 function Item({ card, onPress }) {
-	if (!card.isShown) return null;
   return (
 		<FlipCard 
 		side={card.isFlipped?1:0}
 		style={styles.item}
 		rotate='Y'
-		front={<Side card={card}/>}
-		back={<Side card={card}/>}
+		front={<FrontSide card={card} onPress={onPress}/>}
+		back={<BackSide card={card} onPress={onPress}/>}
 		/>
   );
 }
