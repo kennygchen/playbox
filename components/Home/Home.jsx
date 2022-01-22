@@ -8,6 +8,16 @@ const Games = [
 		displayName: 'Flip&Match',
 		iconPath: require('../FlipAndMatch/icon.png')		
 	},
+	{
+		name:'Snake-canvas',
+		displayName: 'Snake-canvas',
+		iconPath: require('../Snake-canvas/icon.png')		
+	},
+	{
+		name:'Snake-views',
+		displayName: 'Snake-views',
+		iconPath: require('../Snake-views/icon.png')		
+	},
 ]
 
 
