@@ -8,8 +8,8 @@ import {
   Button,
   Dimensions,
   Pressable,
-	StatusBar,
-	Platform
+  StatusBar,
+  Platform,
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import Icon from './Icon.jsx'
@@ -17,6 +17,7 @@ import * as Font from 'expo-font'
 import Status from '../../modules/Status'
 import Menu from '../../modules/Status/menu.jsx'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FlipCard from "../../modules/FlipCard.jsx"
 
 // const coverImage = require("../FlipAndMatch/img/cover.png")
 // const cardImage = [
@@ -37,28 +38,32 @@ const iconNames = [
 	'bulb',
 ]
 
+function Side({card, onPress}) {
+	return (
+		<TouchableOpacity 
+		style={card.isFlipped?styles.card_flipped_first_layer:styles.card_first_layer} 
+		onPress={onPress}>
+			<View style={card.isFlipped?styles.card_flipped_second_layer:styles.card_second_layer}>
+				{card.isFlipped && <Ionicons name={card.name} size={40} color='#f7cf5c' />}
+			</View>
+		</TouchableOpacity>
+	)
+}
 
 function Item({ card, onPress }) {
+	if (!card.isShown) return null;
   return (
-    <View style={styles.item}>
-			<View>
-				{
-					card.isShown && 
-					<TouchableOpacity 
-					style={card.isFlipped?styles.card_flipped_first_layer:styles.card_first_layer} 
-					onPress={onPress}>
-						<View style={card.isFlipped?styles.card_flipped_second_layer:styles.card_second_layer}>
-							{card.isFlipped && <Ionicons name={card.name} size={40} color='#f7cf5c' />}
-						</View>
-					</TouchableOpacity>
-				}
-			</View>
-    </View>
+		<FlipCard 
+		side={card.isFlipped?1:0}
+		style={styles.item}
+		rotate='Y'
+		front={<Side card={card}/>}
+		back={<Side card={card}/>}
+		/>
   );
 }
 
 export default function FlipAndMatch({ navigation }) {
-	
 	const [turns, setTurns] = React.useState(0);
 	const [cards, setCards] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
@@ -103,7 +108,7 @@ export default function FlipAndMatch({ navigation }) {
 	const [cardTwo, setCardTwo] = React.useState(null)
   
 	const handleClick = (card) => {
-		if (cardOne && cardTwo || (cardOne && cardOne.id == card.id)) return
+		if (cardOne && cardTwo || (cardOne && cardOne.id == card.id)) return;
 		cardOne ? setCardTwo(card) : setCardOne(card)
 		card.isFlipped = true;
 	}
@@ -156,7 +161,7 @@ return (
 			</SafeAreaView>
 		<SafeAreaView style={[styles.text, {flexDirection: 'row'}]}>
 			<Text style={[styles.text, {width: 150, color: turns<=10?'white':'red'}]}>Turns: {turns}</Text>
-		</SafeAreaView>
+		</SafeAreaView	>
 		<SafeAreaView style={styles.container}>
 			{cards.map((e, i) => (
 			<Item
@@ -277,8 +282,8 @@ const styles = StyleSheet.create({
     	fontWeight: "bold",
     	alignSelf: "flex-start",
     	alignItems: "flex-start",
-			fontFamily: 'Bomb',
+		fontFamily: 'Bomb',
 		color: 'white',
 		padding: 20,
-	}
+	},
 });
